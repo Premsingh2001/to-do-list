@@ -1,22 +1,24 @@
-import express from 'express';
-import cors from 'cors';
-import bodyParser from 'body-parser';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
 
-import Connection from './database/db.js';
-import Routes from './routes/route.js';
+import { Provider } from 'react-redux';
 
-const app = express();
+import App from './App';
+import reportWebVitals from './reportWebVitals';
 
+import store from './redux/store';
 
-app.use(cors());
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <Provider store={store}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </Provider>
+);
 
-app.use(bodyParser.json({ extended: true }));
-app.use(bodyParser.urlencoded({ extended: true }))
-
-app.use('/', Routes);
-
-const PORT = 8000;
-
-Connection();
-
-app.listen(PORT, () => console.log(`Your server is running successfully on PORT ${PORT}`));
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
